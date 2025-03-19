@@ -1,6 +1,4 @@
-import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 class DnCNN(nn.Module):
     def __init__(self, channels, num_of_layers=17):
@@ -38,9 +36,9 @@ class DnCNN(nn.Module):
         out = self.dncnn(x)
         return out
     
-# Test the Model
+# Test that model works for (512x512) sized images
 # if __name__ == "__main__":
-#     x = torch.randn((3, 3, 512, 512))
-#     model = UNET(in_channels=3, out_channels=3)
-#     preds = model(x)
-#     print(preds.shape)  # Should match input shape
+#   x = torch.randn((3, 3, 512, 512))
+#   model = DnCNN(channels=3, num_of_layers=12)
+#   preds = model(x)
+#   print(preds.shape)  # Should match input shape

@@ -3,36 +3,14 @@ requires pytorch, numpy, matplotlib, cv2, torchvision
 STEPS:
     create virtual environment - [python -m venv pytorch_env]
     activate venv (depends on os and CLI) - [pytorch_env\Scripts\activate]
-    install necessary libraries - [pip install _]
+    install necessary libraries - [pip install LIBRARY]
+    download the dataset from https://www.kaggle.com/datasets/leonnorfleet/blur-noise-dataset
+    extract the data folder
 
-IMPORTANT STEPS:
-    download the noise dataset from https://www.kaggle.com/datasets/tarunpathak/natural-images-with-synthetic-noise
-    extract the dataset .rar file
-    create a folder named data
-    move all contents into the data folder
-    run file_organize.py [python file_organize.py]
+preprocessing: 
+    resize image to 512x512
+    remove prefixes and suffixes that distinguish it from it's clean/ground truth image
 
-removed the suffixes from noisy images that tell their noise type (for convenience)
-^what file_organize is for
-
-main relevant nn architectures:
-- auto-encoder (U-Net)
-- residual network (DnCNN) [currently being used]
-
-15 epochs -> ~69 minutes to train
-
-* doing model training with the test dataset due to training time
-* ideally I want to train with 40 epochs(iterations) and the train dataset
-* traing could be sped up with less layers but more testing is necessary
-
-model.pth is the most recently trained version of the model
-
-to train the model - python train.py
-_ test the trained model - python test.py
-    - test.py checks the output of the model for a given images
 
 reference video:
 https://www.youtube.com/watch?v=ddi58EcZPxw&t=848s
-
-relevant research paper for loss functions:
-https://www.google.com/url?sa=i&url=https%3A%2F%2Fresearch.nvidia.com%2Fsites%2Fdefault%2Ffiles%2Fpubs%2F2017-03_Loss-Functions-for%2FNN_ImgProc.pdf&psig=AOvVaw1XTyV9SWOjzO_qqrR_BeF9&ust=1741739054464000&source=images&cd=vfe&opi=89978449&ved=0CAYQrpoMahcKEwiQ6t3e4YCMAxUAAAAAHQAAAAAQBA

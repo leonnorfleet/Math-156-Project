@@ -14,10 +14,14 @@ class DenoisingDataset(Dataset):
 
     def __getitem__(self, idx):
         noisy_path = os.path.join(self.noisy_dir, self.filenames[idx])
-        clean_path = os.path.join(self.clean_dir, self.filenames[idx])  # Assumes same name
-
-        # Load images as tensors without altering format
-        noisy_image = io.read_image(noisy_path)  # Loads as (C, H, W) tensor
-        clean_image = io.read_image(clean_path)  # Loads as (C, H, W) tensor
-
-        return noisy_image.float() / 255.0, clean_image.float() / 255.0  # Normalize if needed
+        clean_path = os.path.join(self.clean_dir, self.filenames[idx])
+        
+        # Load images and ensure consistent format
+        noisy_image = io.read_image(noisy_path, mode=io.ImageReadMode.RGB)  # Force RGB mode
+        clean_image = io.read_image(clean_path, mode=io.ImageReadMode.RGB)  # Force RGB mode
+        
+        # Convert to float32 explicitly and normalize
+        noisy_image = noisy_image.float().div(255.0)
+        clean_image = clean_image.float().div(255.0)
+        
+        return noisy_image, clean_image
